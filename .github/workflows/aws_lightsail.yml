@@ -6,33 +6,31 @@ on:
       - main
 
 jobs:
-
   deploy:
     name: Deploy to Lightsail
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Deploy to Lightsail
-      env:
-        LIGHTSAIL_INSTANCE_NAME: ${{ secrets.LIGHTSAIL_INSTANCE_NAME }}
-      run: |
-        # Install the AWS CLI
-        sudo apt-get update
-        sudo apt-get install -y awscli
+      - name: Deploy to Lightsail
+        env:
+          LIGHTSAIL_INSTANCE_NAME: ${{ secrets.LIGHTSAIL_INSTANCE_NAME }}
+        run: |
+          # Install the AWS CLI
+          sudo apt-get update
+          sudo apt-get install -y awscli
 
-        # Deploy the code to the Lightsail instance
-        aws lightsail create-container-service-deployment \
-          --service-name $LIGHTSAIL_INSTANCE_NAME \
-          --containers file://containers.json \
-          --public-endpoint enabled
-
+          # Deploy the code to the Lightsail instance
+          aws lightsail create-container-service-deployment \
+            --service-name $LIGHTSAIL_INSTANCE_NAME \
+            --containers file://containers.json \
+            --public-endpoint enabled
