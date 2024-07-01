@@ -1,0 +1,21 @@
+{
+  "containers": [
+    {
+      "command": [],
+      "environment": {},
+      "image": "nginx:latest",
+      "ports": [
+        {
+          "hostPort": 80,
+          "protocol": "HTTP"
+        }
+      ]
+    }
+  ],
+  "publicEndpoint": {
+    "containerName": "nginx",
+    "containerPort": 80,
+    "healthCheckPath": "/",
+    "healthCheckPeriodSeconds": 300
+  }
+}
