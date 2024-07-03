@@ -1,0 +1,35 @@
+name: Deploy to AWS Lightsail
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up SSH agent
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+
+    - name: Deploy to AWS Lightsail
+      env:
+        SSH_KEY: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+        SSH_USER: ${{ secrets.LIGHTSAIL_SSH_USER }}
+        SSH_HOST: ${{ secrets.LIGHTSAIL_SSH_HOST }}
+        SSH_PORT: ${{ secrets.LIGHTSAIL_SSH_PORT }}
+      run: |
+        echo "Deploying to AWS Lightsail..."
+        ssh -o StrictHostKeyChecking=no -i $SSH_KEY -p $SSH_PORT $SSH_USER@$SSH_HOST << 'EOF'
+          # Commands to deploy your site
+          # cd /path/to/your/site
+          cd /www/wwwroot/lareef.publicvm.com
+          git pull origin main
+          # Any other commands to build or restart your application
+        EOF
