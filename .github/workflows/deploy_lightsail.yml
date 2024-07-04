@@ -27,7 +27,7 @@ jobs:
         echo "Deploying to AWS Lightsail..."
         ssh -o StrictHostKeyChecking=no -i $SSH_KEY -p $SSH_PORT $SSH_USER@$SSH_HOST << 'EOF'
           # Commands to deploy your site
-          # cd /path/to/your/site
+          # cd /path/to/your/sites
           cd /www/wwwroot/lareef.publicvm.com
           git pull origin main
           # Any other commands to build or restart your application
