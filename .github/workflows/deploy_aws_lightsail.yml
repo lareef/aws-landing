@@ -1,0 +1,24 @@
+name: Deploy Website
+
+on:
+  push:
+    branches:
+      - main # change this to your default branch
+# schedule:
+jobs:
+  deploy:
+    name: Deploy to Lightsail
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install SSH key
+      uses: webfactory/ssh-agent@v0.5.3
+      with: 
+        ssh-private-key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+
+    - name: Deploy to Lightsail via SSH
+      run: 
+        scp -o StrictHostKeyChecking=no -r ./* ubuntu@54.179.39.150:/www/wwwroot/lareef.publicvm.com
