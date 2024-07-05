@@ -21,4 +21,4 @@ jobs:
 
     - name: Deploy to Lightsail via SSH
       run: 
-        scp -o StrictHostKeyChecking=no -r ./* ubuntu@54.179.39.150:/www/wwwroot/lareef.publicvm.com
+        scp -o StrictHostKeyChecking=no -r ./* root@54.179.39.150:/www/wwwroot/lareef.publicvm.com
