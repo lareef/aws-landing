@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-name: Deploy to AWS Lightsails mlm
-=======
-name: Deploy to AWS Lightsails.
->>>>>>> 822b073fa9e957b56589049d034de2387bf7edac
+name: Deploy to AWS Lightsails..
 
 on:
   push:
